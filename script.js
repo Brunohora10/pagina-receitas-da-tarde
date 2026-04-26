@@ -1,11 +1,11 @@
-const WHATSAPP_NUMBER = "5599999999999"; // Substitua pelo seu numero com DDI e DDD.
-const WHATSAPP_MESSAGE = "Olá, quero conhecer o material Receitas Afetivas e Saudáveis para Café da Tarde";
+const PIX_KEY = "79991081834";
+const PIX_PRICE = "R$ 19,90"; // Ajuste o valor do material aqui
 
 let activeFilter = "all";
 let activeSearch = "";
 
 document.addEventListener("DOMContentLoaded", () => {
-  bindWhatsAppButtons();
+  renderPixInfo();
   bindFilters();
   bindSearch();
   bindFaq();
@@ -14,25 +14,35 @@ document.addEventListener("DOMContentLoaded", () => {
   renderRecipes();
 });
 
-function bindWhatsAppButtons() {
-  const ctaButtons = document.querySelectorAll(".js-whatsapp");
-  ctaButtons.forEach((button) => {
-    button.addEventListener("click", (event) => {
-      event.preventDefault();
-      openWhatsApp();
-    });
-  });
+function renderPixInfo() {
+  const priceEl = document.getElementById("pix-price-display");
+  if (priceEl) priceEl.textContent = PIX_PRICE;
+  const keyEl = document.getElementById("pix-key-display");
+  if (keyEl) keyEl.textContent = PIX_KEY;
 }
 
-function openWhatsApp() {
-  const number = WHATSAPP_NUMBER.replace(/\D/g, "");
-  if (!number || number.length < 10) {
-    alert("Defina o numero no script.js na constante WHATSAPP_NUMBER para ativar o WhatsApp.");
-    return;
+function copyPixKey() {
+  const btn = document.getElementById("pix-copy-btn");
+  const msg = document.getElementById("pix-copied-msg");
+  const showCopied = () => {
+    if (btn) btn.textContent = "✅ Copiado!";
+    if (msg) msg.classList.add("visible");
+    setTimeout(() => {
+      if (btn) btn.textContent = "📋 Copiar chave";
+      if (msg) msg.classList.remove("visible");
+    }, 2500);
+  };
+  if (navigator.clipboard) {
+    navigator.clipboard.writeText(PIX_KEY).then(showCopied).catch(showCopied);
+  } else {
+    const el = document.createElement("textarea");
+    el.value = PIX_KEY;
+    document.body.appendChild(el);
+    el.select();
+    document.execCommand("copy");
+    document.body.removeChild(el);
+    showCopied();
   }
-
-  const url = `https://wa.me/${number}?text=${encodeURIComponent(WHATSAPP_MESSAGE)}`;
-  window.open(url, "_blank", "noopener,noreferrer");
 }
 
 function bindFilters() {

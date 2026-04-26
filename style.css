@@ -570,6 +570,140 @@ h2 {
   box-shadow: var(--shadow);
 }
 
+/* ── PIX Section ─────────────────────────────── */
+.pix-box {
+  margin-top: 2rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.6rem;
+}
+
+.pix-price-row {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.3rem;
+}
+
+.pix-price-label {
+  font-size: 1rem;
+  color: var(--text-soft);
+}
+
+.pix-price-value {
+  font-size: clamp(2.4rem, 6vw, 3.4rem);
+  color: #3d7040;
+  font-family: "Cormorant Garamond", serif;
+  font-weight: 700;
+  line-height: 1.1;
+}
+
+.pix-key-wrap {
+  background: #fff;
+  border: 2px solid rgba(61, 112, 64, 0.3);
+  border-radius: var(--radius-lg);
+  padding: 1.3rem 1.6rem;
+  width: 100%;
+  max-width: 440px;
+  text-align: center;
+  box-shadow: 0 4px 18px rgba(61, 112, 64, 0.1);
+}
+
+.pix-key-label {
+  font-size: 0.82rem;
+  color: var(--text-soft);
+  margin: 0 0 0.6rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+}
+
+.pix-key-row {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.pix-key-value {
+  font-size: 1.35rem;
+  font-weight: 800;
+  color: #2e5430;
+  letter-spacing: 0.06em;
+  font-family: monospace;
+}
+
+.btn-copy-pix {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.3rem;
+  background: linear-gradient(120deg, #3d7040, #5a9e5d);
+  color: #fff;
+  border: none;
+  border-radius: 999px;
+  padding: 0.55rem 1.2rem;
+  font-size: 0.95rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  min-height: 44px;
+}
+
+.btn-copy-pix:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px rgba(61, 112, 64, 0.3);
+}
+
+.pix-copied-msg {
+  font-size: 0.9rem;
+  color: #3d7040;
+  font-weight: 700;
+  margin: 0.6rem 0 0;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.pix-copied-msg.visible {
+  opacity: 1;
+}
+
+.pix-steps {
+  text-align: left;
+  max-width: 440px;
+  width: 100%;
+}
+
+.pix-steps h3 {
+  font-size: 1rem;
+  color: var(--text);
+  margin: 0 0 0.7rem;
+  font-weight: 800;
+}
+
+.pix-steps-list {
+  margin: 0;
+  padding-left: 1.3rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+}
+
+.pix-steps-list li {
+  font-size: 1rem;
+  color: var(--text-soft);
+  line-height: 1.55;
+}
+
+.pix-note {
+  font-size: 0.9rem;
+  color: #3d7040;
+  font-weight: 600;
+  margin: 0;
+}
+
+/* ── FAQ ─────────────────────────────────────── */
 .faq-list {
   display: grid;
   gap: 0.7rem;
