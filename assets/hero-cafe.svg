@@ -1,0 +1,22 @@
+<svg width="1200" height="900" viewBox="0 0 1200 900" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect width="1200" height="900" rx="40" fill="#F6EAD8"/>
+  <rect x="72" y="72" width="1056" height="756" rx="36" fill="#FFF8EE" stroke="#D8C1A3"/>
+  <ellipse cx="855" cy="230" rx="220" ry="120" fill="#E4EBD8"/>
+  <ellipse cx="304" cy="700" rx="220" ry="120" fill="#F0DFC2"/>
+  <circle cx="292" cy="403" r="170" fill="#D9B98A"/>
+  <circle cx="292" cy="403" r="145" fill="#A46F42"/>
+  <circle cx="292" cy="403" r="112" fill="#F7D99A"/>
+  <path d="M245 300C275 268 322 260 356 286C393 314 399 371 371 406C347 435 311 448 280 463C256 475 235 496 229 523C220 489 194 461 183 426C168 379 193 332 245 300Z" fill="#F2B56E"/>
+  <rect x="662" y="468" width="282" height="165" rx="32" fill="#8F6643"/>
+  <rect x="699" y="429" width="206" height="120" rx="24" fill="#FFF2DD" stroke="#CFB090" stroke-width="10"/>
+  <path d="M910 466C958 466 995 504 995 550C995 596 958 634 910 634H880V602H910C941 602 965 578 965 550C965 522 941 498 910 498H880V466H910Z" fill="#FFF2DD"/>
+  <path d="M770 381C750 343 792 311 815 344C833 369 815 394 815 414" stroke="#C69462" stroke-width="12" stroke-linecap="round"/>
+  <path d="M829 366C809 328 851 296 874 329C892 354 874 379 874 399" stroke="#C69462" stroke-width="12" stroke-linecap="round"/>
+  <path d="M887 381C867 343 909 311 932 344C950 369 932 394 932 414" stroke="#C69462" stroke-width="12" stroke-linecap="round"/>
+  <circle cx="538" cy="276" r="78" fill="#F5CF68"/>
+  <path d="M489 277C530 230 590 219 615 267C632 301 606 344 563 355C521 366 473 331 489 277Z" fill="#F6E59A"/>
+  <path d="M478 640C551 575 639 590 682 644C729 704 699 787 625 807C540 831 448 780 445 699C444 676 454 659 478 640Z" fill="#DDAF5C"/>
+  <path d="M503 664C560 617 626 631 660 672C696 717 671 779 613 794C546 811 473 770 470 706C469 690 476 678 503 664Z" fill="#F0D391"/>
+  <text x="650" y="174" fill="#6B4B33" font-family="Georgia, serif" font-size="58" font-weight="700">Cafe da tarde</text>
+  <text x="650" y="238" fill="#8B6A43" font-family="Arial, sans-serif" font-size="30">bolos, cafe e frutas em casa</text>
+</svg>

@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Teste Mobile - Receitas</title>
+    <style>
+        * { box-sizing: border-box; }
+        body { margin: 0; padding: 10px; font-family: Arial; font-size: 16px; }
+        iframe { width: 100%; height: 100vh; border: 2px solid #333; }
+        .info { background: #f0f0f0; padding: 10px; margin-bottom: 10px; border-radius: 5px; }
+    </style>
+</head>
+<body>
+    <div class="info">
+        <strong>Teste de Responsividade Mobile:</strong>
+        <p>Seu tamanho de tela atual: <span id="size"></span></p>
+        <p>Abra a página original em uma janela pequena (360-480px) para testar mobile</p>
+    </div>
+    <iframe src="index.html"></iframe>
+    
+    <script>
+        function updateSize() {
+            document.getElementById('size').textContent = 
+                window.innerWidth + 'x' + window.innerHeight + 'px';
+        }
+        updateSize();
+        window.addEventListener('resize', updateSize);
+    </script>
+</body>
+</html>
