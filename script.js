@@ -11,6 +11,7 @@ document.addEventListener("DOMContentLoaded", () => {
   bindFaq();
   setupRevealAnimations();
   renderFeaturedRecipes();
+  renderAnuncioRecipes();
   renderRecipes();
 });
 
@@ -902,3 +903,339 @@ const CATEGORIAS = [
 const receitas = CATEGORIAS.flatMap((categoria) => {
   return categoria.receitas.map((nome) => createRecipe(nome, categoria.id, categoria.nome));
 });
+
+// ============================================================
+// RECEITAS DO ANÚNCIO — conteúdo completo
+// ============================================================
+
+const RECEITAS_ANUNCIO = [
+  {
+    nome: "Bolo Simples Fofinho de Café da Tarde",
+    emoji: "🍰",
+    descricao: "Um bolo básico, macio e caseiro, perfeito para acompanhar café ou chá.",
+    popular: true,
+    videoUrl: "https://www.youtube.com/watch?v=OsdlZ7QVRX4",
+    tempo: "40 minutos",
+    rendimento: "12 fatias",
+    ingredientes: [
+      "3 ovos",
+      "1 xícara de farinha de trigo (ou farinha de aveia para versão mais leve)",
+      "1/2 xícara de adoçante culinário ou açúcar mascavo",
+      "1/2 xícara de leite (ou leite vegetal)",
+      "1/3 xícara de óleo vegetal",
+      "1 colher (sopa) de fermento químico",
+      "1 colher (chá) de extrato de baunilha",
+      "Pitada de sal",
+    ],
+    preparo: [
+      "Preaqueça o forno a 180 graus e unte uma forma redonda com óleo e farinha.",
+      "Bata os ovos com o adoçante até ficar cremoso e levemente claro.",
+      "Adicione o leite, o óleo e a baunilha, misturando bem.",
+      "Incorpore a farinha aos poucos, misturando delicadamente sem bater demais.",
+      "Adicione o fermento por último e mexa suavemente para não perder o ar.",
+      "Despeje na forma e asse por 30 a 35 minutos, até dourar e o palito sair limpo.",
+      "Espere 10 minutos antes de desenformar. Sirva com café ou chá.",
+    ],
+    dica: "Para um toque especial, polvilhe açúcar de coco ou canela por cima antes de servir.",
+  },
+  {
+    nome: "Bolo Mesclado com Cobertura de Chocolate",
+    emoji: "🎂",
+    descricao: "Massa fofinha com efeito mesclado e cobertura cremosa de chocolate.",
+    popular: true,
+    videoUrl: "https://www.youtube.com/watch?v=iKNe4rAVnuA",
+    tempo: "50 minutos",
+    rendimento: "12 fatias",
+    ingredientes: [
+      "3 ovos",
+      "1 xícara de farinha de trigo",
+      "1/2 xícara de adoçante culinário",
+      "1/2 xícara de leite",
+      "1/3 xícara de óleo",
+      "1 colher (sopa) de fermento",
+      "3 colheres (sopa) de cacau em pó 100%",
+      "Para a cobertura: 4 col. (sopa) de cacau, 3 col. (sopa) de mel ou adoçante, 2 col. (sopa) de leite vegetal",
+    ],
+    preparo: [
+      "Preaqueça o forno a 180 graus e unte uma forma redonda.",
+      "Bata ovos com adoçante, leite e óleo até ficar homogêneo.",
+      "Adicione a farinha e o fermento, misturando delicadamente.",
+      "Divida a massa em duas partes iguais. Em uma delas, misture o cacau em pó.",
+      "Coloque colheradas alternadas das duas massas na forma.",
+      "Passe um palito em zigue-zague para criar o efeito mesclado.",
+      "Asse por 35 a 40 minutos. Espere esfriar completamente.",
+      "Para a cobertura: misture cacau, adoçante e leite vegetal em fogo baixo, mexendo até encorpar. Espalhe sobre o bolo frio.",
+    ],
+    dica: "A cobertura fica mais brilhante se você adicionar uma colher de óleo de coco enquanto ainda está no fogo.",
+  },
+  {
+    nome: "Cuca Caseira de Banana com Farofinha",
+    emoji: "🍌",
+    descricao: "Receita afetiva com banana madura e farofinha crocante por cima.",
+    popular: false,
+    videoUrl: "https://www.youtube.com/watch?v=2IUsfAt7QaA",
+    tempo: "55 minutos",
+    rendimento: "12 porções",
+    ingredientes: [
+      "3 bananas maduras fatiadas",
+      "2 ovos",
+      "1 xícara de farinha de trigo (ou aveia em flocos finos)",
+      "1/2 xícara de adoçante culinário",
+      "1/3 xícara de leite",
+      "1/4 xícara de óleo",
+      "1 colher (sopa) de fermento",
+      "Para a farofa: 3 col. (sopa) de farinha, 2 col. (sopa) de açúcar mascavo, 2 col. (sopa) de manteiga, canela a gosto",
+    ],
+    preparo: [
+      "Preaqueça o forno a 180 graus.",
+      "Bata os ovos com adoçante, leite e óleo até homogêneo.",
+      "Adicione a farinha e o fermento, misturando até ficar liso.",
+      "Despeje a massa na forma untada.",
+      "Distribua as fatias de banana por toda a superfície.",
+      "Prepare a farofa: misture farinha, açúcar mascavo, manteiga e canela com os dedos até granular.",
+      "Espalhe a farofa por cima das bananas.",
+      "Asse por 40 a 45 minutos, até dourar bem por cima.",
+    ],
+    dica: "Use bananas bem maduras para mais doçura natural e textura mais macia na massa.",
+  },
+  {
+    nome: "Bolo de Limão com Cobertura Cremosa",
+    emoji: "🍋",
+    descricao: "Bolo leve e aromático, com cobertura cremosa e toque cítrico.",
+    popular: false,
+    videoUrl: "https://www.youtube.com/watch?v=J6f8vgBNqXQ",
+    tempo: "45 minutos",
+    rendimento: "10 fatias",
+    ingredientes: [
+      "3 ovos",
+      "Raspas e suco de 2 limões",
+      "1 xícara de farinha de trigo (ou farinha de arroz para versão mais leve)",
+      "1/2 xícara de adoçante culinário",
+      "1/3 xícara de óleo",
+      "1/3 xícara de leite",
+      "1 colher (sopa) de fermento",
+      "Para a cobertura: 3 col. (sopa) de suco de limão + 4 col. (sopa) de açúcar de confeiteiro (ou adoçante em pó)",
+    ],
+    preparo: [
+      "Preaqueça o forno a 180 graus e unte uma forma tipo inglesa.",
+      "Bata ovos com adoçante até espumar levemente.",
+      "Adicione o óleo, leite, suco e raspas de limão, misturando bem.",
+      "Incorpore a farinha aos poucos, misturando sem bater demais.",
+      "Adicione o fermento por último e misture suavemente.",
+      "Asse por 30 a 35 minutos. Espere esfriar completamente.",
+      "Misture o suco de limão com o açúcar em pó até formar uma pasta brilhante. Espalhe sobre o bolo frio.",
+    ],
+    dica: "Raspe bem o limão antes de espremer — as raspas trazem muito mais aroma para a massa.",
+  },
+  {
+    nome: "Bolo de Chocolate Fofinho",
+    emoji: "🍫",
+    descricao: "Uma opção clássica para quem ama chocolate no café da tarde.",
+    popular: true,
+    videoUrl: "https://www.youtube.com/watch?v=qg2EqHDyJGM",
+    tempo: "45 minutos",
+    rendimento: "12 fatias",
+    ingredientes: [
+      "3 ovos",
+      "1 xícara de farinha de trigo",
+      "4 colheres (sopa) de cacau em pó 100%",
+      "1/2 xícara de adoçante culinário",
+      "1/2 xícara de leite quente",
+      "1/3 xícara de óleo",
+      "1 colher (sopa) de fermento",
+      "1 colher (chá) de extrato de baunilha",
+    ],
+    preparo: [
+      "Preaqueça o forno a 180 graus e unte uma forma redonda.",
+      "Dissolva o cacau em pó no leite quente, misturando bem. Reserve.",
+      "Bata os ovos com o adoçante, o óleo e a baunilha.",
+      "Adicione o leite com cacau e misture até incorporar.",
+      "Incorpore a farinha aos poucos, misturando delicadamente.",
+      "Adicione o fermento por último, com movimentos suaves.",
+      "Despeje na forma e asse por 35 a 40 minutos.",
+      "Teste com palito. Deixe amornar 10 minutos antes de desenformar.",
+    ],
+    dica: "O cacau em pó 100% traz sabor intenso sem açúcar adicionado — escolha sempre o de boa qualidade.",
+  },
+  {
+    nome: "Brownie Caseiro de Chocolate",
+    emoji: "🟫",
+    descricao: "Doce simples, intenso e perfeito para servir em pedaços.",
+    popular: true,
+    videoUrl: "https://www.youtube.com/watch?v=I2VUOvU-xTQ",
+    tempo: "35 minutos",
+    rendimento: "16 pedaços",
+    ingredientes: [
+      "2 ovos",
+      "5 colheres (sopa) de cacau em pó 100%",
+      "1/2 xícara de adoçante culinário",
+      "1/3 xícara de farinha de trigo (ou aveia em flocos finos)",
+      "1/3 xícara de óleo de coco ou manteiga",
+      "1 colher (chá) de extrato de baunilha",
+      "Pitada de sal",
+      "1/2 colher (chá) de fermento",
+    ],
+    preparo: [
+      "Preaqueça o forno a 180 graus.",
+      "Derreta o óleo de coco ou a manteiga e deixe amornar.",
+      "Misture os ovos, o adoçante, a baunilha e o óleo até ficar homogêneo.",
+      "Adicione o cacau, a farinha e o sal, misturando delicadamente.",
+      "Adicione o fermento por último.",
+      "Despeje em forma quadrada untada e enfarinhada.",
+      "Asse por 20 a 25 minutos — o centro deve ficar um pouco úmido.",
+      "Espere esfriar completamente antes de cortar em pedaços.",
+    ],
+    dica: "Não asse demais: o brownie deve sair do forno levemente úmido no centro para ficar cremoso e marcante.",
+  },
+  {
+    nome: "Bolo Gelado Cremoso de Morango",
+    emoji: "🍓",
+    descricao: "Receita bonita, cremosa e especial para servir em ocasiões diferentes.",
+    popular: true,
+    videoUrl: "https://www.youtube.com/watch?v=2VTHNlzEG7c",
+    tempo: "60 minutos + geladeira",
+    rendimento: "12 porções",
+    ingredientes: [
+      "Para a base: 1 pacote de biscoito (ou versão mais leve), 3 col. (sopa) de manteiga",
+      "Para o creme: 200g de cream cheese ou requeijão, 1 caixa de creme de leite, 4 col. de adoçante, 1 col. de suco de limão",
+      "Para a cobertura: 300g de morangos frescos fatiados, 2 col. de adoçante",
+      "1 envelope de gelatina sem sabor incolor",
+    ],
+    preparo: [
+      "Triture os biscoitos e misture com a manteiga até formar farofa úmida. Forre o fundo de uma forma.",
+      "Bata o cream cheese com o creme de leite, o adoçante e o suco de limão até ficar bem cremoso.",
+      "Despeje o creme sobre a base de biscoito e nivele com uma espátula.",
+      "Prepare a gelatina conforme a embalagem, deixe amornar e misture com os morangos e o adoçante.",
+      "Espalhe a cobertura de morango sobre o creme.",
+      "Leve à geladeira por no mínimo 4 horas antes de servir.",
+    ],
+    dica: "Pode substituir o morango por pêssego, framboesa ou qualquer fruta da estação — fica lindo e delicioso.",
+  },
+  {
+    nome: "Bolo de Aveia com Banana",
+    emoji: "🌾",
+    descricao: "Opção mais leve, com ingredientes simples e sabor de casa.",
+    popular: false,
+    videoUrl: "https://www.youtube.com/watch?v=4BjT2Gi5YfA",
+    tempo: "40 minutos",
+    rendimento: "10 fatias",
+    ingredientes: [
+      "2 bananas maduras amassadas",
+      "2 ovos",
+      "1 xícara de aveia em flocos finos",
+      "1/3 xícara de adoçante culinário (ou a gosto)",
+      "1/4 xícara de leite (ou leite vegetal)",
+      "2 colheres (sopa) de óleo",
+      "1 colher (sopa) de fermento",
+      "Canela a gosto",
+    ],
+    preparo: [
+      "Preaqueça o forno a 180 graus e unte uma forma pequena.",
+      "Amasse bem as bananas com um garfo até virar purê.",
+      "Misture os ovos com o adoçante e junte ao purê de banana.",
+      "Adicione o leite e o óleo, misturando bem.",
+      "Incorpore a aveia, a canela e o fermento, misturando até homogêneo.",
+      "Despeje na forma e asse por 30 a 35 minutos.",
+      "Teste com palito. Deixe amornar antes de cortar.",
+    ],
+    dica: "Quanto mais madura a banana, mais natural é a doçura — você pode reduzir ou até dispensar o adoçante.",
+  },
+  {
+    nome: "Biscoitinho Caseiro para Café",
+    emoji: "🍪",
+    descricao: "Biscoitinho simples para acompanhar café, chá ou lanche da tarde.",
+    popular: false,
+    videoUrl: "https://www.youtube.com/watch?v=z_zJ7YN3P4Q",
+    tempo: "30 minutos",
+    rendimento: "30 biscoitos",
+    ingredientes: [
+      "2 xícaras de farinha de trigo (ou aveia fina)",
+      "1/2 xícara de manteiga em temperatura ambiente",
+      "1/2 xícara de adoçante culinário",
+      "1 ovo",
+      "1 colher (chá) de extrato de baunilha",
+      "1 pitada de sal",
+      "Canela a gosto (opcional)",
+    ],
+    preparo: [
+      "Preaqueça o forno a 180 graus.",
+      "Misture a manteiga com o adoçante até formar um creme suave.",
+      "Adicione o ovo e a baunilha, misturando bem.",
+      "Incorpore a farinha, o sal e a canela, formando uma massa que não gruda nas mãos.",
+      "Modele bolinhas pequenas e disponha em assadeira forrada com papel manteiga.",
+      "Achate levemente cada bolinha com um garfo.",
+      "Asse por 15 a 18 minutos, até dourar levemente as bordas.",
+      "Deixe esfriar completamente na assadeira — ficam crocantes ao esfriar.",
+    ],
+    dica: "Guarde em pote com tampa bem fechada e duram até 5 dias sem perder a crocância.",
+  },
+  {
+    nome: "Rosquinha Caseira Leve",
+    emoji: "⭕",
+    descricao: "Receita tradicional, simples e perfeita para guardar em potes.",
+    popular: false,
+    videoUrl: "https://www.youtube.com/watch?v=XJTDvWnuZuU",
+    tempo: "35 minutos",
+    rendimento: "25 rosquinhas",
+    ingredientes: [
+      "2 xícaras de farinha de trigo",
+      "1/2 xícara de amido de milho",
+      "1/2 xícara de manteiga em temperatura ambiente",
+      "3 colheres (sopa) de adoçante culinário",
+      "1 ovo",
+      "1 colher (sopa) de leite",
+      "1 colher (chá) de extrato de baunilha",
+    ],
+    preparo: [
+      "Preaqueça o forno a 180 graus.",
+      "Misture a manteiga com o adoçante até formar um creme leve.",
+      "Adicione o ovo, o leite e a baunilha, misturando bem.",
+      "Incorpore a farinha e o amido até formar uma massa firme e macia.",
+      "Modele rosquinhas com as mãos ou use saco de confeiteiro com bico estrela.",
+      "Disponha em assadeira e asse por 20 a 25 minutos, até dourar levemente.",
+      "Deixe esfriar completamente antes de guardar.",
+    ],
+    dica: "Acrescente raspas de limão ou laranja na massa para dar um aroma especial e diferenciado.",
+  },
+];
+
+function renderAnuncioRecipes() {
+  const grid = document.getElementById("anuncio-grid");
+  if (!grid) return;
+
+  grid.innerHTML = RECEITAS_ANUNCIO.map((recipe, index) => {
+    const ingredientesHtml = recipe.ingredientes.map((item) => `<li>${item}</li>`).join("");
+    const preparoHtml = recipe.preparo.map((passo, i) => `<li>${passo}</li>`).join("");
+    const popularBadge = recipe.popular ? `<span class="anuncio-badge anuncio-badge-popular">⭐ Mais procurada</span>` : "";
+
+    return `
+      <article class="anuncio-card reveal visible" style="animation-delay: ${index * 0.05}s">
+        <div class="anuncio-card-top">
+          ${popularBadge}
+          <span class="anuncio-badge anuncio-badge-video">🎬 Do anúncio</span>
+        </div>
+        <div class="anuncio-card-icon">${recipe.emoji}</div>
+        <h3 class="anuncio-card-title">${recipe.nome}</h3>
+        <p class="anuncio-card-desc">${recipe.descricao}</p>
+        <div class="anuncio-card-meta">
+          <span>⏱ ${recipe.tempo}</span>
+          <span>🍽 ${recipe.rendimento}</span>
+        </div>
+        <details class="anuncio-accordion">
+          <summary class="anuncio-accordion-btn">Ver receita completa</summary>
+          <div class="anuncio-accordion-body">
+            <h4>Ingredientes</h4>
+            <ul class="anuncio-list">${ingredientesHtml}</ul>
+            <h4>Modo de preparo</h4>
+            <ol class="anuncio-steps">${preparoHtml}</ol>
+            <div class="anuncio-tip">
+              <strong>💡 Dica especial:</strong> ${recipe.dica}
+            </div>
+            <a class="btn btn-secondary recipe-support-btn" href="${recipe.videoUrl}" target="_blank" rel="noopener noreferrer">🎬 Abrir vídeo de apoio</a>
+            <p class="anuncio-disclaimer">⚠️ Em caso de restrições alimentares, consulte um profissional de saúde.</p>
+          </div>
+        </details>
+      </article>
+    `;
+  }).join("");
+}
