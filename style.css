@@ -1446,8 +1446,6 @@ h2 {
   cursor: pointer;
   overflow: hidden;
   background: #111;
-  display: block;
-  text-decoration: none;
 }
 
 .receita-modal-thumb img {
