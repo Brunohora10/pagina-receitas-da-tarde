@@ -10,7 +10,6 @@ document.addEventListener("DOMContentLoaded", () => {
   bindSearch();
   bindFaq();
   setupRevealAnimations();
-  renderFeaturedRecipes();
   renderAnuncioRecipes();
   renderRecipes();
   bindReceitasVideo();
@@ -902,7 +901,7 @@ const RECEITAS_ANUNCIO = [
     emoji: "🍰",
     descricao: "Um bolo básico, macio e caseiro, perfeito para acompanhar café ou chá.",
     popular: true,
-    videoUrl: "https://www.youtube.com/watch?v=OsdlZ7QVRX4",
+    videoUrl: "https://www.youtube.com/watch?v=zTGFdNCRK_c",
     tempo: "40 minutos",
     rendimento: "12 fatias",
     ingredientes: [
@@ -1486,13 +1485,9 @@ function abrirModalReceitaGeral(recipe) {
   if (videoId) {
     configurarVideoModal(videoId);
   } else {
-    // Sem vídeo direto: mostra só o link de busca
-    const thumbArea = document.getElementById("modal-thumb-area");
-    const iframe = document.getElementById("modal-video");
+    // Sem vídeo direto: remove área de vídeo e mantém link de busca no YouTube.
+    configurarVideoModal(null);
     const ytLink = document.getElementById("modal-yt-link");
-    thumbArea.style.display = "none";
-    iframe.src = "";
-    iframe.style.display = "none";
     ytLink.href = `https://www.youtube.com/results?search_query=${encodeURIComponent(recipe.nome + " receita")}`;
     ytLink.textContent = "🔍 Buscar vídeo de apoio no YouTube";
     ytLink.style.display = "";

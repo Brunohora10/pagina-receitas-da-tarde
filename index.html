@@ -135,11 +135,36 @@
       </div>
     </section>
 
-    <section class="section section-soft reveal" id="destaques">
+    <section class="section section-alt reveal" id="categorias">
       <div class="container">
-        <h2>Receitas principais em destaque</h2>
-        <p class="section-intro">Uma seleção especial para mostrar o estilo do material: receitas simples, acolhedoras e ideais para variar o cardápio.</p>
-        <div id="featured-grid" class="grid featured-grid"></div>
+        <h2>Categorias de receitas</h2>
+        <div class="tabs" role="tablist" aria-label="Categorias de receitas">
+          <button class="tab-btn active" data-filter="all">Todas</button>
+          <button class="tab-btn" data-filter="cat-1">Bolos sem açúcar refinado</button>
+          <button class="tab-btn" data-filter="cat-2">Bolos sem glúten</button>
+          <button class="tab-btn" data-filter="cat-3">Bolos sem lactose</button>
+          <button class="tab-btn" data-filter="cat-4">Bolos com frutas</button>
+          <button class="tab-btn" data-filter="cat-5">Biscoitos e rosquinhas</button>
+          <button class="tab-btn" data-filter="cat-6">Doces caseiros mais leves</button>
+          <button class="tab-btn" data-filter="cat-7">Café da manhã e lanche</button>
+          <button class="tab-btn" data-filter="cat-8">Receitas para vender</button>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="receitas">
+      <div class="container">
+        <div class="section-title-row">
+          <h2>135 receitas afetivas para seu café da tarde</h2>
+          <p id="recipes-counter">135 receitas encontradas</p>
+        </div>
+        <div class="recipe-toolbar">
+          <label class="search-box" for="recipe-search">
+            <span>Buscar receita pelo nome</span>
+            <input id="recipe-search" type="text" placeholder="Ex.: bolo de banana, rosquinha, mousse..." autocomplete="off">
+          </label>
+        </div>
+        <div id="recipes-grid" class="grid recipes-grid"></div>
       </div>
     </section>
 
@@ -199,39 +224,6 @@
           <article class="card delivery-card"><h3>🎁 Bônus liberados</h3><p>Materiais extras para facilitar o dia a dia após a confirmação do pagamento.</p></article>
           <article class="card delivery-card"><h3>👥 Grupo exclusivo</h3><p>Acesso ao grupo com dicas, ideias e motivação contínua.</p></article>
         </div>
-      </div>
-    </section>
-
-    <section class="section section-alt reveal" id="categorias">
-      <div class="container">
-        <h2>Categorias de receitas</h2>
-        <div class="tabs" role="tablist" aria-label="Categorias de receitas">
-          <button class="tab-btn active" data-filter="all">Todas</button>
-          <button class="tab-btn" data-filter="cat-1">Bolos sem açúcar refinado</button>
-          <button class="tab-btn" data-filter="cat-2">Bolos sem glúten</button>
-          <button class="tab-btn" data-filter="cat-3">Bolos sem lactose</button>
-          <button class="tab-btn" data-filter="cat-4">Bolos com frutas</button>
-          <button class="tab-btn" data-filter="cat-5">Biscoitos e rosquinhas</button>
-          <button class="tab-btn" data-filter="cat-6">Doces caseiros mais leves</button>
-          <button class="tab-btn" data-filter="cat-7">Café da manhã e lanche</button>
-          <button class="tab-btn" data-filter="cat-8">Receitas para vender</button>
-        </div>
-      </div>
-    </section>
-
-    <section class="section" id="receitas">
-      <div class="container">
-        <div class="section-title-row">
-          <h2>135 receitas afetivas para seu café da tarde</h2>
-          <p id="recipes-counter">135 receitas encontradas</p>
-        </div>
-        <div class="recipe-toolbar">
-          <label class="search-box" for="recipe-search">
-            <span>Buscar receita pelo nome</span>
-            <input id="recipe-search" type="text" placeholder="Ex.: bolo de banana, rosquinha, mousse..." autocomplete="off">
-          </label>
-        </div>
-        <div id="recipes-grid" class="grid recipes-grid"></div>
       </div>
     </section>
 
