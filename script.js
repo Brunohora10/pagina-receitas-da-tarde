@@ -1423,19 +1423,11 @@ function configurarVideoModal(videoId) {
     const ytUrl = `https://www.youtube.com/watch?v=${videoId}`;
 
     area.innerHTML = `
-      <div class="receita-modal-thumb" id="modal-thumb-box">
+      <a href="${ytUrl}" target="_blank" rel="noopener noreferrer" class="receita-modal-thumb" aria-label="Assistir no YouTube">
         <img src="${thumbUrl}" alt="Thumbnail do vídeo">
-        <button class="receita-modal-play" aria-label="Assistir vídeo">&#9654;</button>
-      </div>
+        <span class="receita-modal-play">&#9654;</span>
+      </a>
     `;
-
-    area.querySelector(".receita-modal-play").addEventListener("click", () => {
-      area.innerHTML = `<div class="receita-modal-iframe-wrap">
-        <iframe src="https://www.youtube.com/embed/${videoId}?rel=0&modestbranding=1&autoplay=1"
-          title="Vídeo de apoio" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-          allowfullscreen></iframe>
-      </div>`;
-    });
 
     ytLink.href = ytUrl;
     ytLink.textContent = "▶ Assistir no YouTube";
