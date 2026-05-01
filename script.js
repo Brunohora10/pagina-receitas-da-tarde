@@ -1197,7 +1197,7 @@ const RECEITAS_VIDEO = {
     descricao: "Um bolo básico, macio e caseiro, perfeito para acompanhar café ou chá.",
     tempo: "40 minutos",
     rendimento: "12 fatias",
-    videoId: "OsdlZ7QVRX4",
+    videoId: "zTGFdNCRK_c",
     ingredientes: [
       "3 ovos",
       "1 xícara de farinha de trigo (ou farinha de aveia para versão mais leve)",
