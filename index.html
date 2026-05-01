@@ -48,17 +48,89 @@
   </header>
 
   <main>
-    <section class="section section-anuncio reveal" id="receitas-do-anuncio">
+    <section class="section section-video-receitas reveal" id="receitas-do-anuncio">
       <div class="container">
-        <div class="anuncio-header">
-          <span class="anuncio-eyebrow">🎬 Do anúncio</span>
-          <h2 class="anuncio-title">Receitas que aparecem no anúncio</h2>
-          <p class="anuncio-subtitle">Selecionamos aqui as receitas que mais chamam atenção no vídeo: bolos fofinhos, doces caseiros e opções perfeitas para o café da tarde.</p>
+        <div class="video-receitas-header">
+          <span class="tag-video">🎬 Receitas do vídeo</span>
+          <h2 class="video-receitas-title">As receitas que aparecem no vídeo estão aqui</h2>
+          <p class="video-receitas-subtitle">Veio pelo anúncio? Separei aqui as receitas mais procuradas do vídeo para você encontrar rapidinho, sem precisar ficar procurando no material inteiro.</p>
         </div>
-        <div id="anuncio-grid" class="grid anuncio-grid"></div>
-        <div class="anuncio-footer">
-          <p class="anuncio-cta-text">Gostou dessas receitas? Continue explorando o material completo e veja outras opções de bolos, biscoitos e doces para café da tarde.</p>
-          <a href="#receitas" class="btn btn-primary btn-big">Ver todas as receitas</a>
+
+        <div class="grid video-receitas-grid">
+
+          <article class="video-receita-card">
+            <div class="video-receita-img-wrap">
+              <img src="https://images.pexels.com/photos/36509525/pexels-photo-36509525/free-photo-of-slice-of-banana-cake-on-rustic-wooden-table.jpeg?auto=compress&cs=tinysrgb&w=600" alt="Bolo caseiro fofinho mais leve" loading="lazy">
+              <span class="video-receita-badge">⭐ Mais pedida</span>
+            </div>
+            <div class="video-receita-body">
+              <h3>Bolo caseiro fofinho mais leve</h3>
+              <p>Macio por dentro, sabor de casa, com opção mais equilibrada para o dia a dia.</p>
+              <button class="btn btn-video-receita" data-receita="bolo-fofinho">Ver receita</button>
+            </div>
+          </article>
+
+          <article class="video-receita-card">
+            <div class="video-receita-img-wrap">
+              <img src="https://images.pexels.com/photos/8477959/pexels-photo-8477959.jpeg?auto=compress&cs=tinysrgb&w=600" alt="Bolo sem trigo para café da tarde" loading="lazy">
+            </div>
+            <div class="video-receita-body">
+              <h3>Bolo sem trigo para café da tarde</h3>
+              <p>Receitas fofinhas sem farinha de trigo, ideais para quem quer variar o preparo.</p>
+              <button class="btn btn-video-receita" data-receita="bolo-sem-trigo">Ver receita</button>
+            </div>
+          </article>
+
+          <article class="video-receita-card">
+            <div class="video-receita-img-wrap">
+              <img src="https://images.pexels.com/photos/4551832/pexels-photo-4551832.jpeg?auto=compress&cs=tinysrgb&w=600" alt="Bolo com frutas sem açúcar refinado" loading="lazy">
+            </div>
+            <div class="video-receita-body">
+              <h3>Bolo com frutas sem açúcar refinado</h3>
+              <p>Sabor natural da fruta, textura úmida e sem açúcar refinado na massa.</p>
+              <button class="btn btn-video-receita" data-receita="bolo-frutas">Ver receita</button>
+            </div>
+          </article>
+
+          <article class="video-receita-card">
+            <div class="video-receita-img-wrap">
+              <img src="https://images.pexels.com/photos/6157052/pexels-photo-6157052.jpeg?auto=compress&cs=tinysrgb&w=600" alt="Doce caseiro mais equilibrado" loading="lazy">
+            </div>
+            <div class="video-receita-body">
+              <h3>Doce caseiro mais equilibrado</h3>
+              <p>Sobremesas caseiras gostosas e mais leves para encerrar o café da tarde com carinho.</p>
+              <button class="btn btn-video-receita" data-receita="doce-caseiro">Ver receita</button>
+            </div>
+          </article>
+
+          <article class="video-receita-card">
+            <div class="video-receita-img-wrap">
+              <img src="https://images.pexels.com/photos/230325/pexels-photo-230325.jpeg?auto=compress&cs=tinysrgb&w=600" alt="Biscoitos e rosquinhas para café da tarde" loading="lazy">
+            </div>
+            <div class="video-receita-body">
+              <h3>Biscoitos e rosquinhas para café da tarde</h3>
+              <p>Crocantes, simples de fazer e perfeitos para acompanhar o cafezinho ou o chá.</p>
+              <button class="btn btn-video-receita" data-receita="biscoitos">Ver receita</button>
+            </div>
+          </article>
+
+          <article class="video-receita-card">
+            <div class="video-receita-img-wrap">
+              <img src="https://images.pexels.com/photos/5765829/pexels-photo-5765829.jpeg?auto=compress&cs=tinysrgb&w=600" alt="Receitas simples para fazer e vender" loading="lazy">
+              <span class="video-receita-badge video-receita-badge-vender">💰 Para vender</span>
+            </div>
+            <div class="video-receita-body">
+              <h3>Receitas simples para fazer e vender</h3>
+              <p>Bolos, biscoitos e doces caseiros com ideias práticas para gerar renda extra.</p>
+              <button class="btn btn-video-receita" data-receita="fazer-vender">Ver receita</button>
+            </div>
+          </article>
+
+        </div>
+
+        <div class="video-receitas-footer">
+          <p>Essas são só algumas das receitas do material completo.</p>
+          <a href="#receitas" class="btn btn-primary btn-big">Ver todas as 135 receitas</a>
         </div>
       </div>
     </section>
@@ -119,12 +191,13 @@
     <section class="section reveal" id="entrega-digital">
       <div class="container">
         <h2>Entrega digital prática e organizada</h2>
-        <p>Após a confirmação do pagamento, você recebe acesso completo ao material digital, com tudo em um formato simples para usar no celular.</p>
+        <p>Após a confirmação do pagamento, você recebe acesso imediato ao material completo — tudo organizado para consultar pelo celular, onde e quando quiser.</p>
         <div class="grid delivery-grid">
-          <article class="card delivery-card"><h3>📄 PDF completo</h3><p>Receitas reunidas em apostila digital.</p></article>
+          <article class="card delivery-card delivery-card-destaque"><h3>📱 Página organizada de receitas</h3><p>Todas as 135 receitas em uma página digital com busca e filtros por categoria, feita para navegar fácil pelo celular, sem precisar baixar nada.</p></article>
+          <article class="card delivery-card"><h3>📄 PDFs para baixar</h3><p>Apostila digital completa com as receitas para salvar e acessar mesmo sem internet.</p></article>
           <article class="card delivery-card"><h3>🎥 Vídeos de apoio</h3><p>Links diretos nas receitas principais e apoio complementar para as demais.</p></article>
-          <article class="card delivery-card"><h3>🎁 Bônus liberados</h3><p>Materiais extras para facilitar o dia a dia.</p></article>
-          <article class="card delivery-card"><h3>👥 Grupo exclusivo</h3><p>Espaço com dicas, ideias e motivação.</p></article>
+          <article class="card delivery-card"><h3>🎁 Bônus liberados</h3><p>Materiais extras para facilitar o dia a dia após a confirmação do pagamento.</p></article>
+          <article class="card delivery-card"><h3>👥 Grupo exclusivo</h3><p>Acesso ao grupo com dicas, ideias e motivação contínua.</p></article>
         </div>
       </div>
     </section>
@@ -273,6 +346,38 @@
       </div>
     </section>
   </main>
+
+  <!-- Modal receita do vídeo -->
+  <div id="receita-modal" class="receita-modal-overlay" role="dialog" aria-modal="true" aria-labelledby="modal-titulo" hidden>
+    <div class="receita-modal-box">
+      <button class="receita-modal-fechar" id="modal-fechar" aria-label="Fechar receita">✕</button>
+      <div class="receita-modal-video-wrap" id="modal-video-wrap">
+        <div class="receita-modal-thumb" id="modal-thumb-area">
+          <img id="modal-thumb-img" src="" alt="Thumbnail do vídeo">
+          <button class="receita-modal-play" id="modal-play-btn" aria-label="Assistir vídeo">▶</button>
+        </div>
+        <iframe id="modal-video" src="" title="Vídeo de apoio da receita" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen style="display:none;position:absolute;inset:0;width:100%;height:100%;border:0;"></iframe>
+      </div>
+      <a id="modal-yt-link" class="receita-modal-yt-link" href="" target="_blank" rel="noopener noreferrer">▶ Assistir no YouTube</a>
+      <div class="receita-modal-conteudo">
+        <h2 id="modal-titulo" class="receita-modal-titulo"></h2>
+        <p id="modal-desc" class="receita-modal-desc"></p>
+        <div class="receita-modal-meta" id="modal-meta"></div>
+        <div class="receita-modal-cols">
+          <div>
+            <h3>Ingredientes</h3>
+            <ul id="modal-ingredientes" class="receita-modal-lista"></ul>
+          </div>
+          <div>
+            <h3>Modo de preparo</h3>
+            <ol id="modal-preparo" class="receita-modal-lista receita-modal-preparo"></ol>
+          </div>
+        </div>
+        <div id="modal-dica" class="receita-modal-dica"></div>
+        <p class="receita-modal-aviso">⚠️ Em caso de restrições alimentares, consulte um profissional de saúde.</p>
+      </div>
+    </div>
+  </div>
 
   <footer class="footer">
     <div class="container">

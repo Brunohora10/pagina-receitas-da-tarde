@@ -13,6 +13,8 @@ document.addEventListener("DOMContentLoaded", () => {
   renderFeaturedRecipes();
   renderAnuncioRecipes();
   renderRecipes();
+  bindReceitasVideo();
+  bindReceitasGrid();
 });
 
 function renderPixInfo() {
@@ -148,11 +150,10 @@ function renderRecipes() {
   try {
     recipesGrid.innerHTML = filtered
       .map((recipe) => {
-        const videoUrl = getVideoUrl(recipe);
-        const hasDirectVideo = Boolean(getDirectVideoUrl(recipe.nome));
         const tags = recipe.tags.map((tag) => `<span class="tag">${tag}</span>`).join("");
         const icon = getRecipeIcon(recipe.categoriaId);
         const coverImage = getRecipeCover(recipe);
+        const receitaIdx = receitas.indexOf(recipe);
 
         return `
           <article class="card recipe-card reveal visible">
@@ -164,20 +165,7 @@ function renderRecipes() {
             </div>
             <p>${recipe.descricao}</p>
             <div class="recipe-meta">${tags}</div>
-            <details class="recipe-accordion">
-              <summary>Ler receita completa</summary>
-              <div class="recipe-details">
-                <h4>Ingredientes</h4>
-                <ul class="recipe-list">
-                  ${recipe.ingredientes.map((item) => `<li>${item}</li>`).join("")}
-                </ul>
-                <h4>Modo de preparo (passo a passo)</h4>
-                <ol class="recipe-steps">
-                  ${recipe.preparo.map((passo) => `<li>${passo}</li>`).join("")}
-                </ol>
-                <a class="btn btn-secondary recipe-support-btn" href="${videoUrl}" target="_blank" rel="noopener noreferrer">${hasDirectVideo ? "Abrir vídeo de apoio" : "Ver vídeo de apoio"}</a>
-              </div>
-            </details>
+            <button class="btn btn-video-receita receita-card-btn" data-receita-idx="${receitaIdx}">Ver receita completa</button>
           </article>
         `;
       })
@@ -1198,6 +1186,325 @@ const RECEITAS_ANUNCIO = [
     dica: "Acrescente raspas de limão ou laranja na massa para dar um aroma especial e diferenciado.",
   },
 ];
+
+// ============================================================
+// RECEITAS DO VÍDEO — modal com receita completa
+// ============================================================
+
+const RECEITAS_VIDEO = {
+  "bolo-fofinho": {
+    nome: "Bolo Caseiro Fofinho Mais Leve",
+    descricao: "Um bolo básico, macio e caseiro, perfeito para acompanhar café ou chá.",
+    tempo: "40 minutos",
+    rendimento: "12 fatias",
+    videoId: "OsdlZ7QVRX4",
+    ingredientes: [
+      "3 ovos",
+      "1 xícara de farinha de trigo (ou farinha de aveia para versão mais leve)",
+      "1/2 xícara de adoçante culinário ou açúcar mascavo",
+      "1/2 xícara de leite (ou leite vegetal)",
+      "1/3 xícara de óleo vegetal",
+      "1 colher (sopa) de fermento químico",
+      "1 colher (chá) de extrato de baunilha",
+      "Pitada de sal",
+    ],
+    preparo: [
+      "Preaqueça o forno a 180 graus e unte uma forma redonda com óleo e farinha.",
+      "Bata os ovos com o adoçante até ficar cremoso e levemente claro.",
+      "Adicione o leite, o óleo e a baunilha, misturando bem.",
+      "Incorpore a farinha aos poucos, misturando delicadamente sem bater demais.",
+      "Adicione o fermento por último e mexa suavemente para não perder o ar.",
+      "Despeje na forma e asse por 30 a 35 minutos, até dourar e o palito sair limpo.",
+      "Espere 10 minutos antes de desenformar. Sirva com café ou chá.",
+    ],
+    dica: "Para um toque especial, polvilhe açúcar de coco ou canela por cima antes de servir.",
+  },
+  "bolo-sem-trigo": {
+    nome: "Bolo Sem Trigo para Café da Tarde",
+    descricao: "Opção mais leve com aveia e banana, fofinho e sem farinha de trigo.",
+    tempo: "40 minutos",
+    rendimento: "10 fatias",
+    videoId: "4BjT2Gi5YfA",
+    ingredientes: [
+      "2 bananas maduras amassadas",
+      "2 ovos",
+      "1 xícara de aveia em flocos finos",
+      "1/3 xícara de adoçante culinário (ou a gosto)",
+      "1/4 xícara de leite (ou leite vegetal)",
+      "2 colheres (sopa) de óleo",
+      "1 colher (sopa) de fermento",
+      "Canela a gosto",
+    ],
+    preparo: [
+      "Preaqueça o forno a 180 graus e unte uma forma pequena.",
+      "Amasse bem as bananas com um garfo até virar purê.",
+      "Misture os ovos com o adoçante e junte ao purê de banana.",
+      "Adicione o leite e o óleo, misturando bem.",
+      "Incorpore a aveia, a canela e o fermento, misturando até homogêneo.",
+      "Despeje na forma e asse por 30 a 35 minutos.",
+      "Teste com palito. Deixe amornar antes de cortar.",
+    ],
+    dica: "Quanto mais madura a banana, mais natural é a doçura — você pode reduzir ou até dispensar o adoçante.",
+  },
+  "bolo-frutas": {
+    nome: "Bolo com Frutas Sem Açúcar Refinado",
+    descricao: "Cuca afetiva com banana madura e farofinha crocante por cima, sem açúcar refinado.",
+    tempo: "55 minutos",
+    rendimento: "12 porções",
+    videoId: "2IUsfAt7QaA",
+    ingredientes: [
+      "3 bananas maduras fatiadas",
+      "2 ovos",
+      "1 xícara de farinha de trigo (ou aveia em flocos finos)",
+      "1/2 xícara de adoçante culinário",
+      "1/3 xícara de leite",
+      "1/4 xícara de óleo",
+      "1 colher (sopa) de fermento",
+      "Para a farofa: 3 col. (sopa) de farinha, 2 col. (sopa) de açúcar mascavo, 2 col. (sopa) de manteiga, canela a gosto",
+    ],
+    preparo: [
+      "Preaqueça o forno a 180 graus.",
+      "Bata os ovos com adoçante, leite e óleo até homogêneo.",
+      "Adicione a farinha e o fermento, misturando até ficar liso.",
+      "Despeje a massa na forma untada.",
+      "Distribua as fatias de banana por toda a superfície.",
+      "Prepare a farofa: misture farinha, açúcar mascavo, manteiga e canela com os dedos até granular.",
+      "Espalhe a farofa por cima das bananas.",
+      "Asse por 40 a 45 minutos, até dourar bem por cima.",
+    ],
+    dica: "Use bananas bem maduras para mais doçura natural e textura mais macia na massa.",
+  },
+  "doce-caseiro": {
+    nome: "Doce Caseiro Mais Equilibrado",
+    descricao: "Brownie caseiro com cacau 100%, intenso e perfeito para servir em pedaços.",
+    tempo: "35 minutos",
+    rendimento: "16 pedaços",
+    videoId: "I2VUOvU-xTQ",
+    ingredientes: [
+      "2 ovos",
+      "5 colheres (sopa) de cacau em pó 100%",
+      "1/2 xícara de adoçante culinário",
+      "1/3 xícara de farinha de trigo (ou aveia em flocos finos)",
+      "1/3 xícara de óleo de coco ou manteiga",
+      "1 colher (chá) de extrato de baunilha",
+      "Pitada de sal",
+      "1/2 colher (chá) de fermento",
+    ],
+    preparo: [
+      "Preaqueça o forno a 180 graus.",
+      "Derreta o óleo de coco ou a manteiga e deixe amornar.",
+      "Misture os ovos, o adoçante, a baunilha e o óleo até ficar homogêneo.",
+      "Adicione o cacau, a farinha e o sal, misturando delicadamente.",
+      "Adicione o fermento por último.",
+      "Despeje em forma quadrada untada e enfarinhada.",
+      "Asse por 20 a 25 minutos — o centro deve ficar um pouco úmido.",
+      "Espere esfriar completamente antes de cortar em pedaços.",
+    ],
+    dica: "Não asse demais: o brownie deve sair do forno levemente úmido no centro para ficar cremoso e marcante.",
+  },
+  "biscoitos": {
+    nome: "Biscoitos e Rosquinhas para Café da Tarde",
+    descricao: "Biscoitinho simples e crocante para acompanhar café, chá ou lanche da tarde.",
+    tempo: "30 minutos",
+    rendimento: "30 biscoitos",
+    videoId: "z_zJ7YN3P4Q",
+    ingredientes: [
+      "2 xícaras de farinha de trigo (ou aveia fina)",
+      "1/2 xícara de manteiga em temperatura ambiente",
+      "1/2 xícara de adoçante culinário",
+      "1 ovo",
+      "1 colher (chá) de extrato de baunilha",
+      "1 pitada de sal",
+      "Canela a gosto (opcional)",
+    ],
+    preparo: [
+      "Preaqueça o forno a 180 graus.",
+      "Misture a manteiga com o adoçante até formar um creme suave.",
+      "Adicione o ovo e a baunilha, misturando bem.",
+      "Incorpore a farinha, o sal e a canela, formando uma massa que não gruda nas mãos.",
+      "Modele bolinhas pequenas e disponha em assadeira forrada com papel manteiga.",
+      "Achate levemente cada bolinha com um garfo.",
+      "Asse por 15 a 18 minutos, até dourar levemente as bordas.",
+      "Deixe esfriar completamente na assadeira — ficam crocantes ao esfriar.",
+    ],
+    dica: "Guarde em pote com tampa bem fechada e duram até 5 dias sem perder a crocância.",
+  },
+  "fazer-vender": {
+    nome: "Rosquinha Caseira para Fazer e Vender",
+    descricao: "Receita tradicional, simples e com ótima apresentação — ideal para vender.",
+    tempo: "35 minutos",
+    rendimento: "25 rosquinhas",
+    videoId: "XJTDvWnuZuU",
+    ingredientes: [
+      "2 xícaras de farinha de trigo",
+      "1/2 xícara de amido de milho",
+      "1/2 xícara de manteiga em temperatura ambiente",
+      "3 colheres (sopa) de adoçante culinário",
+      "1 ovo",
+      "1 colher (sopa) de leite",
+      "1 colher (chá) de extrato de baunilha",
+    ],
+    preparo: [
+      "Preaqueça o forno a 180 graus.",
+      "Misture a manteiga com o adoçante até formar um creme leve.",
+      "Adicione o ovo, o leite e a baunilha, misturando bem.",
+      "Incorpore a farinha e o amido até formar uma massa firme e macia.",
+      "Modele rosquinhas com as mãos ou use saco de confeiteiro com bico estrela.",
+      "Disponha em assadeira e asse por 20 a 25 minutos, até dourar levemente.",
+      "Deixe esfriar completamente antes de guardar ou embalar para vender.",
+    ],
+    dica: "Acrescente raspas de limão ou laranja na massa para dar um aroma especial e diferenciado.",
+  },
+};
+
+function bindReceitasVideo() {
+  document.querySelectorAll("[data-receita]").forEach((btn) => {
+    btn.addEventListener("click", () => {
+      const chave = btn.dataset.receita;
+      abrirModalReceita(chave);
+    });
+  });
+
+  const overlay = document.getElementById("receita-modal");
+  const fecharBtn = document.getElementById("modal-fechar");
+
+  if (fecharBtn) fecharBtn.addEventListener("click", fecharModalReceita);
+  if (overlay) {
+    overlay.addEventListener("click", (e) => {
+      if (e.target === overlay) fecharModalReceita();
+    });
+  }
+  document.addEventListener("keydown", (e) => {
+    if (e.key === "Escape") fecharModalReceita();
+  });
+}
+
+function abrirModalReceita(chave) {
+  const receita = RECEITAS_VIDEO[chave];
+  if (!receita) return;
+
+  document.getElementById("modal-titulo").textContent = receita.nome;
+  document.getElementById("modal-desc").textContent = receita.descricao;
+  document.getElementById("modal-meta").innerHTML =
+    `<span>⏱ ${receita.tempo}</span><span>🍽 ${receita.rendimento}</span>`;
+  document.getElementById("modal-ingredientes").innerHTML =
+    receita.ingredientes.map((i) => `<li>${i}</li>`).join("");
+  document.getElementById("modal-preparo").innerHTML =
+    receita.preparo.map((p) => `<li>${p}</li>`).join("");
+
+  const dicaEl = document.getElementById("modal-dica");
+  dicaEl.innerHTML = `<strong>💡 Dica:</strong> ${receita.dica}`;
+  dicaEl.style.display = "";
+
+  configurarVideoModal(receita.videoId);
+
+  const modal = document.getElementById("receita-modal");
+  modal.hidden = false;
+  document.body.style.overflow = "hidden";
+  document.getElementById("modal-fechar").focus();
+}
+
+function fecharModalReceita() {
+  const modal = document.getElementById("receita-modal");
+  if (!modal) return;
+  modal.hidden = true;
+  document.body.style.overflow = "";
+  // Para o vídeo e volta para o thumbnail
+  const iframe = document.getElementById("modal-video");
+  iframe.src = "";
+  iframe.style.display = "none";
+  const thumbArea = document.getElementById("modal-thumb-area");
+  if (thumbArea) thumbArea.style.display = "";
+}
+
+function extractYouTubeId(url) {
+  if (!url) return null;
+  const match = url.match(/[?&]v=([^&]+)/);
+  return match ? match[1] : null;
+}
+
+function configurarVideoModal(videoId) {
+  const thumbImg = document.getElementById("modal-thumb-img");
+  const thumbArea = document.getElementById("modal-thumb-area");
+  const iframe = document.getElementById("modal-video");
+  const ytLink = document.getElementById("modal-yt-link");
+  const playBtn = document.getElementById("modal-play-btn");
+
+  // Reseta estado
+  iframe.src = "";
+  iframe.style.display = "none";
+  thumbArea.style.display = "";
+
+  if (videoId) {
+    thumbImg.src = `https://img.youtube.com/vi/${videoId}/hqdefault.jpg`;
+    thumbImg.style.display = "";
+    playBtn.style.display = "";
+    ytLink.href = `https://www.youtube.com/watch?v=${videoId}`;
+    ytLink.style.display = "";
+
+    playBtn.onclick = () => {
+      iframe.src = `https://www.youtube.com/embed/${videoId}?rel=0&modestbranding=1&autoplay=1`;
+      iframe.style.display = "";
+      thumbArea.style.display = "none";
+    };
+  } else {
+    thumbArea.style.display = "none";
+    iframe.style.display = "none";
+    ytLink.style.display = "none";
+  }
+}
+
+function bindReceitasGrid() {
+  document.addEventListener("click", (e) => {
+    const btn = e.target.closest(".receita-card-btn");
+    if (!btn) return;
+    const idx = parseInt(btn.dataset.receitaIdx, 10);
+    if (!isNaN(idx) && receitas[idx]) {
+      abrirModalReceitaGeral(receitas[idx]);
+    }
+  });
+}
+
+function abrirModalReceitaGeral(recipe) {
+  document.getElementById("modal-titulo").textContent = recipe.nome;
+  document.getElementById("modal-desc").textContent = recipe.descricao;
+
+  const tagsStr = recipe.tags.slice(0, 3).join(" · ");
+  document.getElementById("modal-meta").innerHTML =
+    `<span>📂 ${recipe.categoriaNome}</span><span>🏷 ${tagsStr}</span>`;
+
+  document.getElementById("modal-ingredientes").innerHTML =
+    recipe.ingredientes.map((i) => `<li>${i}</li>`).join("");
+  document.getElementById("modal-preparo").innerHTML =
+    recipe.preparo.map((p) => `<li>${p}</li>`).join("");
+
+  const dicaEl = document.getElementById("modal-dica");
+  dicaEl.innerHTML = "";
+  dicaEl.style.display = "none";
+
+  const directUrl = getDirectVideoUrl(recipe.nome);
+  const videoId = extractYouTubeId(directUrl);
+
+  if (videoId) {
+    configurarVideoModal(videoId);
+  } else {
+    // Sem vídeo direto: mostra só o link de busca
+    const thumbArea = document.getElementById("modal-thumb-area");
+    const iframe = document.getElementById("modal-video");
+    const ytLink = document.getElementById("modal-yt-link");
+    thumbArea.style.display = "none";
+    iframe.src = "";
+    iframe.style.display = "none";
+    ytLink.href = `https://www.youtube.com/results?search_query=${encodeURIComponent(recipe.nome + " receita")}`;
+    ytLink.textContent = "🔍 Buscar vídeo de apoio no YouTube";
+    ytLink.style.display = "";
+  }
+
+  const modal = document.getElementById("receita-modal");
+  modal.hidden = false;
+  document.body.style.overflow = "hidden";
+  document.getElementById("modal-fechar").focus();
+}
 
 function renderAnuncioRecipes() {
   const grid = document.getElementById("anuncio-grid");
