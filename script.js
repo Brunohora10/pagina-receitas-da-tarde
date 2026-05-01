@@ -1409,49 +1409,47 @@ function fecharModalReceita() {
   if (!modal) return;
   modal.hidden = true;
   document.body.style.overflow = "";
-  // Para o vídeo e volta para o thumbnail
-  const iframe = document.getElementById("modal-video");
-  iframe.src = "";
-  iframe.style.display = "none";
-  const thumbArea = document.getElementById("modal-thumb-area");
-  if (thumbArea) thumbArea.style.display = "";
+  // Limpa área de vídeo (para o player se estiver tocando)
+  const area = document.getElementById("modal-video-area");
+  if (area) area.innerHTML = "";
+}
+
+function configurarVideoModal(videoId) {
+  const area = document.getElementById("modal-video-area");
+  const ytLink = document.getElementById("modal-yt-link");
+
+  if (videoId) {
+    const thumbUrl = `https://img.youtube.com/vi/${videoId}/hqdefault.jpg`;
+    const ytUrl = `https://www.youtube.com/watch?v=${videoId}`;
+
+    area.innerHTML = `
+      <div class="receita-modal-thumb" id="modal-thumb-box">
+        <img src="${thumbUrl}" alt="Thumbnail do vídeo">
+        <button class="receita-modal-play" aria-label="Assistir vídeo">&#9654;</button>
+      </div>
+    `;
+
+    area.querySelector(".receita-modal-play").addEventListener("click", () => {
+      area.innerHTML = `<div class="receita-modal-iframe-wrap">
+        <iframe src="https://www.youtube.com/embed/${videoId}?rel=0&modestbranding=1&autoplay=1"
+          title="Vídeo de apoio" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+          allowfullscreen></iframe>
+      </div>`;
+    });
+
+    ytLink.href = ytUrl;
+    ytLink.textContent = "▶ Assistir no YouTube";
+    ytLink.style.display = "";
+  } else {
+    area.innerHTML = "";
+    ytLink.style.display = "none";
+  }
 }
 
 function extractYouTubeId(url) {
   if (!url) return null;
   const match = url.match(/[?&]v=([^&]+)/);
   return match ? match[1] : null;
-}
-
-function configurarVideoModal(videoId) {
-  const thumbImg = document.getElementById("modal-thumb-img");
-  const thumbArea = document.getElementById("modal-thumb-area");
-  const iframe = document.getElementById("modal-video");
-  const ytLink = document.getElementById("modal-yt-link");
-  const playBtn = document.getElementById("modal-play-btn");
-
-  // Reseta estado
-  iframe.src = "";
-  iframe.style.display = "none";
-  thumbArea.style.display = "";
-
-  if (videoId) {
-    thumbImg.src = `https://img.youtube.com/vi/${videoId}/hqdefault.jpg`;
-    thumbImg.style.display = "";
-    playBtn.style.display = "";
-    ytLink.href = `https://www.youtube.com/watch?v=${videoId}`;
-    ytLink.style.display = "";
-
-    playBtn.onclick = () => {
-      iframe.src = `https://www.youtube.com/embed/${videoId}?rel=0&modestbranding=1&autoplay=1`;
-      iframe.style.display = "";
-      thumbArea.style.display = "none";
-    };
-  } else {
-    thumbArea.style.display = "none";
-    iframe.style.display = "none";
-    ytLink.style.display = "none";
-  }
 }
 
 function bindReceitasGrid() {
